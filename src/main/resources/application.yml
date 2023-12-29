@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: local
+  main:
+    allow-circular-references: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3308/visitorstatistics?sessionVariables=sql_mode='IGNORE_SPACE,STRICT_TRANS_TABLES'
+    username: vortexdao
+    password: 1234
+  sql:
+    init:
+      platform: mysql-local
+      mode: always
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+logging:
+  level:
+    root: info
+    web: info
+    org:
+      apache:
+        http:
+          wire: DEBUG
+      hibernate:
+        #        SQL: debug
+        SQL: info
+        type:
+          descriptor:
+            sql:
+              #              BasicBinder: trace
+              BasicBinder: info
+      springframework:
+        web:
+          client:
+            RestTemplate: DEBUG
+        jdbc:
+          core:
+            JdbcTemplate: debug
+            StatementCreatorUtils: trace
+        cache: trace
+
+cloud:
+  aws:
+    credentials:
+      access-key: { Your Access Key }
+      secret-access-key: { Your Secret Access Key }
+    s3:
+      bucket: { Your Bucket Name }
+    region:
+      static: ap-northeast-2
